@@ -100,10 +100,14 @@ public class Espetaculo {
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		List<Sessao> sessoes = new ArrayList<Sessao>();
 		Sessao sessao = new Sessao();
-		sessao.setInicio(inicio.toDateTime(horario));
-		sessao.setEspetaculo(this);
-		sessoes.add(sessao);
-		
+		int incremento = (periodicidade==Periodicidade.DIARIA? 1 : 7);
+		for (LocalDate data=inicio; !data.isAfter(fim); data=data.plusDays(incremento)) {
+			sessao.setInicio(inicio.toDateTime(horario));
+			sessao.setEspetaculo(this);
+			sessoes.add(sessao);
+			
+		}
+
 		
 		
 		return sessoes;
